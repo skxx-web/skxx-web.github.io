@@ -47,7 +47,7 @@ jobs:
           done
           curl --fail-with-body --silent --show-error \
             --request POST "${api}/zones/${zone_id}/dns_records" "${auth[@]}" \
-            --data '{"type":"CNAME","name":"kxxweb.ru","content":"skxx-web-github-io.pages.dev","ttl":1,"proxied":true}' >/dev/null
+            --data '{"type":"CNAME","name":"kxxweb.ru","content":"skxx-web-github-io.pages.dev","ttl":1,"proxied":false}' >/dev/null
       - name: Attach kxxweb.ru custom domain
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
