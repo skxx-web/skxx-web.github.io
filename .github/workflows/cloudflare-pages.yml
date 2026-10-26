@@ -45,7 +45,11 @@ jobs:
           if [ -z "$record_id" ]; then
             curl --fail-with-body --silent --show-error \
               --request POST "${api}/zones/${zone_id}/dns_records" "${auth[@]}" \
-              --data '{"type":"CNAME","name":"kxxweb.ru","content":"skxx-web-github-io.pages.dev","ttl":1,"proxied":false}' >/dev/null
+              --data '{"type":"CNAME","name":"kxxweb.ru","content":"skxx-web-github-io.pages.dev","ttl":1,"proxied":true}' >/dev/null
+          else
+            curl --fail-with-body --silent --show-error \
+              --request PUT "${api}/zones/${zone_id}/dns_records/${record_id}" "${auth[@]}" \
+              --data '{"type":"CNAME","name":"kxxweb.ru","content":"skxx-web-github-io.pages.dev","ttl":1,"proxied":true}' >/dev/null
           fi
       - name: Attach kxxweb.ru custom domain
         env:
