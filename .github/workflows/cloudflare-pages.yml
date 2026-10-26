@@ -41,20 +41,13 @@ jobs:
           test -n "$zone_id"
           printf '%s\n' "$zones" | jq -r '.result[0].name_servers[]? // empty' | sed 's/^/Cloudflare nameserver: /'
           records=$(curl --fail-with-body --silent --show-error "${api}/zones/${zone_id}/dns_records?name=kxxweb.ru" "${auth[@]}")
-          printf '%s' "$records" | jq -r '.result[] | select(.type == "CNAME" or .type == "AAAA") | .id' | while read -r record_id; do
+          printf '%s' "$records" | jq -r '.result[] | select(.type == "A" or .type == "AAAA" or .type == "CNAME") | .id' | while read -r record_id; do
             [ -z "$record_id" ] || curl --fail-with-body --silent --show-error \
               --request DELETE "${api}/zones/${zone_id}/dns_records/${record_id}" "${auth[@]}" >/dev/null
           done
-          for ip in 172.66.44.96 172.66.47.160; do
-            existing=$(curl --fail-with-body --silent --show-error \
-              "${api}/zones/${zone_id}/dns_records?type=A&name=kxxweb.ru&content=${ip}" "${auth[@]}")
-            record_id=$(printf '%s' "$existing" | jq -r '.result[0].id // empty')
-            if [ -z "$record_id" ]; then
-              curl --fail-with-body --silent --show-error \
-                --request POST "${api}/zones/${zone_id}/dns_records" "${auth[@]}" \
-                --data "{\"type\":\"A\",\"name\":\"kxxweb.ru\",\"content\":\"${ip}\",\"ttl\":300,\"proxied\":false}" >/dev/null
-            fi
-          done
+          curl --fail-with-body --silent --show-error \
+            --request POST "${api}/zones/${zone_id}/dns_records" "${auth[@]}" \
+            --data '{"type":"CNAME","name":"kxxweb.ru","content":"skxx-web-github-io.pages.dev","ttl":1,"proxied":true}' >/dev/null
       - name: Attach kxxweb.ru custom domain
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
