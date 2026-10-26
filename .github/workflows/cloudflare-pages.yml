@@ -52,7 +52,7 @@ jobs:
           test -n "$zone_id"
           printf '%s\n' "$zones" | jq -r '.result[0].name_servers[]? // empty' | sed 's/^/Cloudflare nameserver: /'
           curl --fail-with-body --silent --show-error \
-            --request PATCH "${api}/zones/${zone_id}/settings/http3" "${auth[@]}" \
+            --request PUT "${api}/zones/${zone_id}/settings/http3" "${auth[@]}" \
             --data '{"value":"off"}' >/dev/null
           records=$(curl --fail-with-body --silent --show-error "${api}/zones/${zone_id}/dns_records?name=kxxweb.ru" "${auth[@]}")
           printf '%s' "$records" | jq -r '.result[] | select(.type == "A" or .type == "AAAA" or .type == "CNAME") | .id' | while read -r record_id; do
