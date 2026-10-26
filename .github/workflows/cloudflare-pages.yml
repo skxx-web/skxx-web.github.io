@@ -36,9 +36,10 @@ jobs:
               --request POST "${api}/zones" "${auth[@]}" \
               --data "{\"name\":\"kxxweb.ru\",\"account\":{\"id\":\"${CLOUDFLARE_ACCOUNT_ID}\"}}")
             zone_id=$(printf '%s' "$created" | jq -r '.result.id // empty')
-            printf '%s\n' "$created" | jq -r '.result.name_servers[]? // empty' | sed 's/^/Cloudflare nameserver: /'
+            zones="$created"
           fi
           test -n "$zone_id"
+          printf '%s\n' "$zones" | jq -r '.result[0].name_servers[]? // empty' | sed 's/^/Cloudflare nameserver: /'
           records=$(curl --fail-with-body --silent --show-error "${api}/zones/${zone_id}/dns_records?type=CNAME&name=kxxweb.ru" "${auth[@]}")
           record_id=$(printf '%s' "$records" | jq -r '.result[0].id // empty')
           if [ -z "$record_id" ]; then
@@ -51,9 +52,15 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: 7a40b8466753962ea417bf20622b1292
         run: |
-          curl --fail-with-body --silent --show-error \
-            --request POST \
-            --url "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/skxx-web-github-io/domains" \
-            --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
-            --header "Content-Type: application/json" \
-            --data '{"name":"kxxweb.ru"}'
+          set -euo pipefail
+          api='https://api.cloudflare.com/client/v4'
+          auth=(-H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" -H 'Content-Type: application/json')
+          domains=$(curl --fail-with-body --silent --show-error \
+            "${api}/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/skxx-web-github-io/domains" "${auth[@]}")
+          if ! printf '%s' "$domains" | jq -e '.result[]? | select(.name == "kxxweb.ru")' >/dev/null; then
+            curl --fail-with-body --silent --show-error \
+              --request POST \
+              --url "${api}/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/skxx-web-github-io/domains" \
+              "${auth[@]}" \
+              --data '{"name":"kxxweb.ru"}'
+          fi
