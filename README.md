@@ -1,9 +1,9 @@
-# Kirill Web
+# k web — сайты под ключ для бизнеса
 
-Static profile site for `https://skxx-web.github.io/`.
+Канонический адрес сайта: [https://kxxweb.ru/](https://kxxweb.ru/).
 
-This repository contains the prebuilt HTML/CSS/JavaScript from the supplied archive. The only hosting-specific changes are using the site-root URL and loading the browser configuration from `site-config.js`. Contact actions remain external links; there is no backend or contact-form processor.
+Репозиторий содержит статическую сборку сайта и отдельные информационные страницы для поисковой индексации: сайт для кафе, магазина, студии/сервиса и обслуживание сайтов, а также ответы на частые вопросы. Есть отдельная англоязычная страница по адресу `/en/`; цены на ней указаны в RUB, без автоматической конвертации валют.
 
-## GitHub Pages
+Главная страница публикуется из корня ветки `main` через GitHub Pages. Файл `CNAME` указывает на `kxxweb.ru`. Sitemap: `https://kxxweb.ru/sitemap.xml`; правила индексации: `https://kxxweb.ru/robots.txt`.
 
-Publish directly from the `main` branch at the repository root (`/(root)`). No build script or GitHub Actions workflow is required.
+В репозитории находится prebuilt HTML/CSS/JavaScript-сборка исходного сайта. Контактные ссылки ведут в Telegram, MAX и электронную почту; backend-формы на сайте нет.
