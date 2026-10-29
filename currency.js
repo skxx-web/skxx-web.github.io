@@ -121,7 +121,7 @@
   let rateData = null;
   let currentCurrency = isRussianDevice() ? "RUB" : "USD";
   let currentLanguage = isHomePage
-    ? (languageOverride || (isRussianDevice() ? "ru" : "en"))
+    ? (languageOverride || (isSearchBot() || isRussianDevice() ? "ru" : "en"))
     : (document.documentElement.lang.toLowerCase().startsWith("en") ? "en" : "ru");
   let scheduled = false;
 
