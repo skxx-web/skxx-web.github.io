@@ -1,0 +1,7 @@
+{
+  "base": "USD",
+  "quote": "RUB",
+  "rubPerUsd": 80.8664,
+  "checkedOn": "2026-10-30",
+  "source": "https://www.cbr.ru/scripts/XML_daily.asp"
+}

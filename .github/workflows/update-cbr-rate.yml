@@ -1,0 +1,71 @@
+name: Update daily USD-RUB rate and publish site
+
+on:
+  schedule:
+    - cron: '15 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  update-and-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+      - name: Fetch and validate the official Bank of Russia rate
+        run: |
+          python3 - <<'PY'
+          import json
+          import urllib.request
+          import xml.etree.ElementTree as ET
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          url = "https://www.cbr.ru/scripts/XML_daily.asp"
+          request = urllib.request.Request(url, headers={"User-Agent": "k-web-site-currency/1.0"})
+          with urllib.request.urlopen(request, timeout=30) as response:
+              payload = response.read()
+          root = ET.fromstring(payload)
+          usd = next((item for item in root.findall("Valute") if item.findtext("CharCode") == "USD"), None)
+          if usd is None:
+              raise SystemExit("USD rate missing from the Bank of Russia XML")
+          nominal = int(usd.findtext("Nominal", "1"))
+          rate_node = usd.find("VunitRate")
+          raw_rate = rate_node.text if rate_node is not None and rate_node.text else usd.findtext("Value", "")
+          rate = float(raw_rate.replace(",", "."))
+          if rate_node is None or not rate_node.text:
+              rate /= nominal
+          if not 1 <= rate <= 10000:
+              raise SystemExit("USD/RUB rate outside sanity bounds")
+          rate_date = root.attrib.get("Date")
+          if not rate_date:
+              raise SystemExit("Rate date missing from the Bank of Russia XML")
+          result = {
+              "base": "USD",
+              "quote": "RUB",
+              "rubPerUsd": round(rate, 6),
+              "rateDate": datetime.strptime(rate_date, "%d.%m.%Y").date().isoformat(),
+              "source": url,
+              "updatedAtUtc": datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+          }
+          Path("fx-rates.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(f"Validated the official USD/RUB rate dated {result['rateDate']}; fresh rate JSON is ready for publishing.")
+          PY
+      - name: Upload the updated static website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Publish website and daily rate
+        id: deployment
+        uses: actions/deploy-pages@v4
