@@ -1,6 +1,6 @@
 (() => {
   const rateUrl = "/fx-rates.json";
-  const storageKey = "kweb-currency-override";
+  const countryUrl = "https://www.cloudflare.com/cdn-cgi/trace";
   const russianTimeZones = new Set([
     "Europe/Kaliningrad", "Europe/Moscow", "Europe/Samara", "Europe/Saratov",
     "Europe/Ulyanovsk", "Europe/Volgograd", "Asia/Anadyr", "Asia/Barnaul",
@@ -12,7 +12,7 @@
   const records = new WeakMap();
   const amountPattern = /(\d[\d,\s\u00a0]*(?:\.\d+)?(?:\s*[–—-]\s*\d[\d,\s\u00a0]*(?:\.\d+)?)?)\s*(RUB|₽)/gi;
   let rateData = null;
-  let currentCurrency = "RUB";
+  let currentCurrency = isRussianDevice() ? "RUB" : "USD";
   let scheduled = false;
 
   function isRussianDevice() {
@@ -27,28 +27,6 @@
     } catch (_) {
       return false;
     }
-  }
-
-  function getOverride() {
-    try {
-      const value = localStorage.getItem(storageKey);
-      return value === "RUB" || value === "USD" ? value : "AUTO";
-    } catch (_) {
-      return "AUTO";
-    }
-  }
-
-  function setOverride(value) {
-    try {
-      if (value === "AUTO") localStorage.removeItem(storageKey);
-      else localStorage.setItem(storageKey, value);
-    } catch (_) {}
-  }
-
-  function chosenCurrency() {
-    const override = getOverride();
-    if (override === "RUB" || override === "USD") return override;
-    return isRussianDevice() ? "RUB" : "USD";
   }
 
   function parseAmount(value) {
@@ -91,7 +69,7 @@
     const current = node.nodeValue;
     const record = records.get(node);
     const original = record && current === record.rendered ? record.original : current;
-    const rendered = currentCurrency === "RUB" ? original : convertText(original);
+    const rendered = convertText(original);
     if (rendered !== current) {
       records.set(node, { original, rendered });
       node.nodeValue = rendered;
@@ -106,7 +84,6 @@
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) processTextNode(node);
-    updateToggle();
   }
 
   function queueRender() {
@@ -118,44 +95,28 @@
     });
   }
 
-  function dateLabel() {
-    const value = rateData?.rateDate || rateData?.checkedOn;
-    if (!value) return "latest available daily rate";
-    const parts = value.split("-");
-    if (parts.length !== 3) return value;
-    return `${parts[2]}.${parts[1]}.${parts[0]}`;
-  }
-
-  function ensureToggle() {
-    if (!document.body || document.getElementById("kweb-currency-toggle")) return;
-    const button = document.createElement("button");
-    button.id = "kweb-currency-toggle";
-    button.type = "button";
-    button.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:99999;border:1px solid #9bb92d;border-radius:999px;background:#d8fb55;color:#14160d;padding:9px 14px;font:600 13px/1.1 system-ui,-apple-system,Segoe UI,sans-serif;box-shadow:0 2px 12px #0003;cursor:pointer;";
-    button.addEventListener("click", () => {
-      const override = getOverride();
-      const next = override === "AUTO" ? (currentCurrency === "RUB" ? "USD" : "RUB") : override === "RUB" ? "USD" : "AUTO";
-      setOverride(next);
-      currentCurrency = chosenCurrency();
+  function setCountry(country) {
+    if (!/^[A-Z]{2}$/.test(country)) return;
+    const nextCurrency = country === "RU" ? "RUB" : "USD";
+    if (nextCurrency !== currentCurrency) {
+      currentCurrency = nextCurrency;
       queueRender();
-    });
-    document.body.appendChild(button);
-    updateToggle();
+    }
   }
 
-  function updateToggle() {
-    const button = document.getElementById("kweb-currency-toggle");
-    if (!button) return;
-    const override = getOverride();
-    const automatic = override === "AUTO";
-    const label = `${currentCurrency === "RUB" ? "₽ RUB" : "$ USD"}${automatic ? " · auto" : ""}`;
-    if (button.textContent !== label) button.textContent = label;
-    button.title = `${automatic ? "Currency selected from your device region/time zone." : "Manual currency selection."} Click to switch. USD values are approximate equivalents using the Bank of Russia daily rate${rateData ? ` (${dateLabel()})` : ""}. Final quote and payment currency are agreed individually.`;
-    button.setAttribute("aria-label", button.title);
+  function detectCountry() {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2500);
+    fetch(countryUrl, { cache: "no-store", mode: "cors", credentials: "omit", signal: controller.signal })
+      .then((response) => response.ok ? response.text() : "")
+      .then((trace) => {
+        const match = trace.match(/(?:^|\n)loc=([A-Z]{2})(?:\r?\n|$)/);
+        if (match) setCountry(match[1]);
+      })
+      .catch(() => {})
+      .finally(() => clearTimeout(timeout));
   }
 
-  currentCurrency = chosenCurrency();
-  ensureToggle();
   fetch(rateUrl, { cache: "no-store", credentials: "same-origin" })
     .then((response) => {
       if (!response.ok) throw new Error("rate file unavailable");
@@ -165,13 +126,11 @@
       const rate = Number(data.rubPerUsd);
       if (!Number.isFinite(rate) || rate <= 0) throw new Error("invalid rate");
       rateData = data;
-      currentCurrency = chosenCurrency();
       queueRender();
     })
-    .catch(() => {
-      updateToggle();
-    });
+    .catch(() => {});
 
+  detectCountry();
   const observer = new MutationObserver(queueRender);
   if (document.documentElement) observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 })();
