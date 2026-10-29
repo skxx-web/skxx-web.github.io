@@ -1,6 +1,7 @@
 (() => {
   const rateUrl = "/fx-rates.json";
   const countryUrl = "https://www.cloudflare.com/cdn-cgi/trace";
+  const languageStorageKey = "kweb-language-override";
   const russianTimeZones = new Set([
     "Europe/Kaliningrad", "Europe/Moscow", "Europe/Samara", "Europe/Saratov",
     "Europe/Ulyanovsk", "Europe/Volgograd", "Asia/Anadyr", "Asia/Barnaul",
@@ -13,6 +14,7 @@
   const amountPattern = /(\d[\d,\s\u00a0]*(?:\.\d+)?(?:\s*[–—-]\s*\d[\d,\s\u00a0]*(?:\.\d+)?)?)\s*(RUB|₽)/gi;
   let rateData = null;
   let currentCurrency = isRussianDevice() ? "RUB" : "USD";
+  const languageOverride = readLanguageOverride();
   let scheduled = false;
 
   function isRussianDevice() {
@@ -26,6 +28,24 @@
       return russianTimeZones.has(Intl.DateTimeFormat().resolvedOptions().timeZone);
     } catch (_) {
       return false;
+    }
+  }
+
+  function readLanguageOverride() {
+    const requested = new URLSearchParams(window.location.search).get("lang");
+    try {
+      if (requested === "ru" || requested === "en") {
+        localStorage.setItem(languageStorageKey, requested);
+        return requested;
+      }
+      if (requested === "auto") {
+        localStorage.removeItem(languageStorageKey);
+        return null;
+      }
+      const saved = localStorage.getItem(languageStorageKey);
+      return saved === "ru" || saved === "en" ? saved : null;
+    } catch (_) {
+      return requested === "ru" || requested === "en" ? requested : null;
     }
   }
 
@@ -102,6 +122,26 @@
       currentCurrency = nextCurrency;
       queueRender();
     }
+    maybeRedirectLanguage(country);
+  }
+
+  function maybeRedirectLanguage(country) {
+    if (/(bot|crawler|spider|slurp|facebookexternalhit|twitterbot|linkedinbot|telegrambot)/i.test(navigator.userAgent || "")) return;
+    const isEnglishPath = /^\/en(?:\/|$)/.test(window.location.pathname);
+    const wantsEnglish = languageOverride ? languageOverride === "en" : country !== "RU";
+    if (wantsEnglish && !isEnglishPath) {
+      const params = new URLSearchParams(window.location.search);
+      params.delete("lang");
+      const query = params.toString();
+      const target = `/en/${query ? `?${query}` : ""}${window.location.hash}`;
+      window.location.replace(target);
+    } else if (languageOverride === "ru" && isEnglishPath) {
+      const params = new URLSearchParams(window.location.search);
+      params.delete("lang");
+      const query = params.toString();
+      const target = `/${query ? `?${query}` : ""}${window.location.hash}`;
+      window.location.replace(target);
+    }
   }
 
   function detectCountry() {
@@ -112,8 +152,9 @@
       .then((trace) => {
         const match = trace.match(/(?:^|\n)loc=([A-Z]{2})(?:\r?\n|$)/);
         if (match) setCountry(match[1]);
+        else maybeRedirectLanguage(isRussianDevice() ? "RU" : "XX");
       })
-      .catch(() => {})
+      .catch(() => maybeRedirectLanguage(isRussianDevice() ? "RU" : "XX"))
       .finally(() => clearTimeout(timeout));
   }
 
