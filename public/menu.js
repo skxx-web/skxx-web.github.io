@@ -7,7 +7,11 @@
   const setMenuOpen = (open) => {
     nav.classList.toggle('is-open', open);
     button.setAttribute('aria-expanded', String(open));
-    button.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    const isEnglish = document.documentElement.lang === 'en';
+    button.setAttribute(
+      'aria-label',
+      isEnglish ? (open ? 'Close menu' : 'Open menu') : (open ? 'Закрыть меню' : 'Открыть меню')
+    );
   };
 
   button.addEventListener('click', () => {
