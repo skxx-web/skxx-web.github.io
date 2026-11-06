@@ -139,7 +139,7 @@
 
   function formatUsd(rubles, rate) {
     const amount = Math.round(Number(rubles) * rate);
-    return `≈ US$${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(amount)}`;
+    return `≈ USD ${new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(amount)}`;
   }
 
   function updateMeta(language) {
