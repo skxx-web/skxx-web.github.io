@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://kxxweb.ru/</loc><lastmod>2026-11-05</lastmod></url>
-  <url><loc>https://kxxweb.ru/Teletsburg/</loc><lastmod>2026-11-05</lastmod></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://kxxweb.ru/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/" />
+  </url>
+  <url>
+    <loc>https://kxxweb.ru/en/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/" />
+  </url>
+  <url>
+    <loc>https://kxxweb.ru/Teletsburg/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/Teletsburg/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/Teletsburg/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/Teletsburg/" />
+  </url>
+  <url>
+    <loc>https://kxxweb.ru/en/Teletsburg/</loc>
+    <lastmod>2026-11-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/Teletsburg/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/Teletsburg/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/Teletsburg/" />
+  </url>
 </urlset>

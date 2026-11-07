@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Synchronize static site mirror
+        run: node .github/scripts/sync-public.mjs
       - name: Deploy static files to Cloudflare Pages
         uses: cloudflare/wrangler-action@v4
         with:
