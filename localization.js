@@ -74,6 +74,7 @@
     'Реальный проект · Бургерная': 'Featured project · Burger restaurant',
     'Телецбург': 'Teletsburg',
     'Открыть сайт': 'View project',
+    'Сайт для кафе': 'Café website service',
     'Под вашу нишу, стиль и цели соберу отдельную историю.': 'We create a distinctive digital experience tailored to your industry, style and goals.',
     'Расскажите,': 'Tell us,',
     'что запускаем?': 'what shall we build?',

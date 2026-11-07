@@ -3,55 +3,75 @@
   <url>
     <loc>https://kxxweb.ru/</loc>
     <lastmod>2026-11-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/" />
-  </url>
-  <url>
-    <loc>https://kxxweb.ru/en/</loc>
-    <lastmod>2026-11-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/" />
   </url>
   <url>
     <loc>https://kxxweb.ru/Teletsburg/</loc>
     <lastmod>2026-11-08</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/Teletsburg/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/Teletsburg/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/Teletsburg/" />
   </url>
   <url>
-    <loc>https://kxxweb.ru/en/Teletsburg/</loc>
+    <loc>https://kxxweb.ru/portfolio/teletsburg/</loc>
     <lastmod>2026-11-08</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/Teletsburg/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/Teletsburg/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/Teletsburg/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/portfolio/teletsburg/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/portfolio/teletsburg/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/portfolio/teletsburg/" />
+  </url>
+  <url>
+    <loc>https://kxxweb.ru/en/portfolio/teletsburg/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/portfolio/teletsburg/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/portfolio/teletsburg/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/portfolio/teletsburg/" />
   </url>
   <url>
     <loc>https://kxxweb.ru/sajt-dlya-kafe/</loc>
     <lastmod>2026-11-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/sajt-dlya-kafe/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/website-for-cafes/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/sajt-dlya-kafe/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://kxxweb.ru/es/sitio-web-para-cafes/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://kxxweb.ru/de/website-fuer-cafes/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://kxxweb.ru/zh/website-for-cafes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/en/website-for-cafes/" />
   </url>
   <url>
     <loc>https://kxxweb.ru/en/website-for-cafes/</loc>
     <lastmod>2026-11-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/sajt-dlya-kafe/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/website-for-cafes/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/sajt-dlya-kafe/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://kxxweb.ru/es/sitio-web-para-cafes/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://kxxweb.ru/de/website-fuer-cafes/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://kxxweb.ru/zh/website-for-cafes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/en/website-for-cafes/" />
+  </url>
+  <url>
+    <loc>https://kxxweb.ru/es/sitio-web-para-cafes/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/sajt-dlya-kafe/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/website-for-cafes/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://kxxweb.ru/es/sitio-web-para-cafes/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://kxxweb.ru/de/website-fuer-cafes/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://kxxweb.ru/zh/website-for-cafes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/en/website-for-cafes/" />
+  </url>
+  <url>
+    <loc>https://kxxweb.ru/de/website-fuer-cafes/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/sajt-dlya-kafe/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/website-for-cafes/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://kxxweb.ru/es/sitio-web-para-cafes/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://kxxweb.ru/de/website-fuer-cafes/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://kxxweb.ru/zh/website-for-cafes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/en/website-for-cafes/" />
+  </url>
+  <url>
+    <loc>https://kxxweb.ru/zh/website-for-cafes/</loc>
+    <lastmod>2026-11-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://kxxweb.ru/sajt-dlya-kafe/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://kxxweb.ru/en/website-for-cafes/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://kxxweb.ru/es/sitio-web-para-cafes/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://kxxweb.ru/de/website-fuer-cafes/" />
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://kxxweb.ru/zh/website-for-cafes/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kxxweb.ru/en/website-for-cafes/" />
   </url>
 </urlset>
