@@ -471,7 +471,7 @@
   });
   const CASE_ACCESSIBLE_LABELS = Object.freeze({
     es: {
-      title: 'Caso del sitio web de Teletsburg | k web',
+      title: 'Caso del sitio web de Teletsburg | kxxweb',
       brand: 'k web — Inicio',
       navigation: 'Navegación de página',
       breadcrumb: 'Ruta de navegación',
@@ -480,7 +480,7 @@
       imageAlt: 'Hamburguesa destacada del proyecto Teletsburg'
     },
     de: {
-      title: 'Website-Referenz für Teletsburg | k web',
+      title: 'Website-Referenz für Teletsburg | kxxweb',
       brand: 'k web — Startseite',
       navigation: 'Seitennavigation',
       breadcrumb: 'Brotkrumennavigation',
@@ -489,7 +489,7 @@
       imageAlt: 'Burger aus dem Teletsburg-Projekt'
     },
     zh: {
-      title: 'Teletsburg 餐厅网站案例 | k web',
+      title: 'Teletsburg 餐厅网站案例 | kxxweb',
       brand: 'k web — 首页',
       navigation: '页面导航',
       breadcrumb: '面包屑导航',
@@ -500,31 +500,31 @@
   });
   const META = Object.freeze({
     ru: {
-      title: 'Сайт под ключ — создание сайтов для бизнеса | k web',
+      title: 'Сайт под ключ — создание сайтов для бизнеса | kxxweb',
       description: 'Создание сайтов под ключ для бизнеса: индивидуальный дизайн, адаптация под смартфоны, публикация и сопровождение. Стоимость сайта — от 10 000 ₽.',
       ogDescription: 'Сайт под ключ для бизнеса: индивидуальный дизайн, адаптация под смартфоны, публикация и сопровождение.',
       twitterDescription: 'Создание сайтов под ключ для бизнеса — дизайн, публикация и сопровождение.'
     },
     en: {
-      title: 'Turnkey Website — Website Design for Businesses | k web',
+      title: 'Turnkey Website — Website Design for Businesses | kxxweb',
       description: 'Turnkey website creation for businesses: custom design, mobile-ready layouts, launch and ongoing maintenance.',
       ogDescription: 'Turnkey website design and development for businesses, from custom concept to launch and support.',
       twitterDescription: 'Turnkey websites for businesses: custom design, launch and ongoing maintenance.'
     },
     es: {
-      title: 'Sitio web llave en mano — creación de sitios web | k web',
+      title: 'Sitio web llave en mano — creación de sitios web | kxxweb',
       description: 'Creación de sitios web llave en mano para empresas: diseño a medida, adaptación móvil, publicación y mantenimiento.',
       ogDescription: 'Diseño y desarrollo de sitios web para empresas, desde la idea hasta la publicación y el mantenimiento.',
       twitterDescription: 'Sitios web llave en mano para empresas: diseño, publicación y mantenimiento.'
     },
     de: {
-      title: 'Website schlüsselfertig — Webseitenerstellung | k web',
+      title: 'Website schlüsselfertig — Webseitenerstellung | kxxweb',
       description: 'Schlüsselfertige Websites für Unternehmen: individuelles Design, mobile Optimierung, Veröffentlichung und Betreuung.',
       ogDescription: 'Individuelles Webdesign und Entwicklung für Unternehmen – vom Konzept bis zur Veröffentlichung und Betreuung.',
       twitterDescription: 'Schlüsselfertige Websites für Unternehmen: Design, Veröffentlichung und Betreuung.'
     },
     zh: {
-      title: '一站式企业网站建设｜网站设计与开发 | k web',
+      title: '一站式企业网站建设｜网站设计与开发 | kxxweb',
       description: '为企业提供一站式网站建设：定制设计、移动端适配、网站发布与后续维护。',
       ogDescription: '为企业提供网站设计与开发，从定制方案到网站上线及维护。',
       twitterDescription: '企业一站式网站服务：定制设计、网站发布与维护。'
