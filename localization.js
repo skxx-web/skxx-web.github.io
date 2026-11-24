@@ -1,6 +1,10 @@
 (() => {
   'use strict';
 
+  // Search/social crawlers must receive the canonical Russian HTML and metadata.
+  // Human visitors still get the existing automatic country/language localization.
+  const isSearchCrawler = /bot|crawler|spider|slurp|facebookexternalhit|twitterbot|linkedinbot|yandex/i.test(navigator.userAgent || '');
+
   const COUNTRY_API = 'https://api.country.is/';
   const RATE_API_BASE = 'https://api.frankfurter.dev/v2/rate/RUB/';
   const RATE_CACHE_PREFIX = 'kweb-rub-rate-v2:';
@@ -863,6 +867,7 @@
   }
 
   async function initialize() {
+    if (isSearchCrawler) return;
     const requested = normalizeLanguage(new URLSearchParams(window.location.search).get('lang'));
     const initialCountry = browserRegion();
     const initialLanguage = requested || languageForCountry(initialCountry);
